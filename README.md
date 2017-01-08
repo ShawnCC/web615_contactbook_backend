@@ -1,1 +1,3 @@
-# web615_contactbook_backend
+# WEB615 Contact Book #
+
+Server side code for the Contact Book app
