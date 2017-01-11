@@ -4,11 +4,11 @@ Server side code for the Contact Book app
 
 ## Setup ##
 
-The following are required as global depedencies:
+The following are required as global dependencies:
 
 * NodeJS
 
-To install the local depedencies for the app run ``` npm i ```
+To install the local dependencies for the app run ``` npm i ```
 
 ## Endpoints ##
 
