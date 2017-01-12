@@ -99,9 +99,14 @@ router.put('/:contactId/', (req, res) => {
         // Get the contact
         (callback) => {
             models.contact.findById(req.params.contactId).then((data) => {
-                contact = data;
-
-                return callback();
+                if (data) {
+                    contact = data;
+                    return callback();
+                } else {
+                    responseData.status = 404,
+                    responseData.message = 'Contact not found.';
+                    return callback(new Error(responseData.message));
+                }
             }).catch((err) => {
                 responseData.status = 500,
                 responseData.message = 'Error getting Contact.';
