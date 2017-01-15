@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
 
         classMethods: {
             associate: (models) => {
-                // associations can be defined here
+                Contact.belongsTo(models.user, {
+                    onDelete: 'CASCADE'
+                });
             }
         }
     });

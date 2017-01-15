@@ -19,3 +19,11 @@ To install the local dependencies for the app run ``` npm i ```
 * POST /api/v1/contacts/
 * PUT /api/v1/contacts/:contactId/
 * DELETE /api/v1/contacts/:contactId/
+
+## Users ##
+
+* GET /api/v1/users/
+* GET /api/v1/users/:userId/contacts/
+* POST /api/v1/users/
+* PUT /api/v1/users/:userId/
+* DELETE /api/v1/users/:userId/
