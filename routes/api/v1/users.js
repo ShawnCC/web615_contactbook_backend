@@ -45,10 +45,16 @@ router.get('/', (req, res) => {
 router.get('/:userId/contacts/', (req, res) => {
     let responseData = {};
 
+    // Find the user by its ID
     models.user.findById(req.params.userId, {
+        // Exclude the password column (good practice, reduces exposure of
+        // passwords to the world)
         attributes: {
             exclude: ['password']
         },
+        // Include our contact model here
+        // You can include multiple models, and define other query commands such
+        // as where clauses, attribute selection, ordering, etc
         include: [{
             model: models.contact
         }]
