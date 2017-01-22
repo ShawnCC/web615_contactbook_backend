@@ -14,6 +14,8 @@ To install the local dependencies for the app run ``` npm i ```
 
 ### Contacts ###
 
+***NOTE:** These endpoints now require authentication via JWT that should be included in the Authorization key in the request headers. JWT is returned in login request.*
+
 * GET /api/v1/contacts/
 * GET /api/v1/contacts/:contactId/
 * POST /api/v1/contacts/
@@ -25,5 +27,6 @@ To install the local dependencies for the app run ``` npm i ```
 * GET /api/v1/users/
 * GET /api/v1/users/:userId/contacts/
 * POST /api/v1/users/
+* POST /api/v1/users/login/
 * PUT /api/v1/users/:userId/
 * DELETE /api/v1/users/:userId/
