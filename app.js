@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const server = http.createServer(app);
+const io = require('socket.io').listen(server);
 const models = require('./models');
 
 // Prints out requests
@@ -16,6 +17,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: false
 }));
+
+// This middleware includes Socket.IO instance in the request object so that all
+// of the endpoints have access to Socket.IO
+app.use((req, res, next) => {
+    req.io = io;
+    next();
+});
 
 // Require Routes
 const v1Contacts = require('./routes/api/v1/contacts');

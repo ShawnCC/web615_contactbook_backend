@@ -141,6 +141,10 @@ router.post('/', authUtils.jwtAuth, (req, res) => {
             responseData.status = 201;
             responseData.message = 'Contact created successfully!';
 
+            // Emit a socket event so that client apps know a new contact was
+            // created
+            req.io.emit('POST/api/v1/contacts/');
+
             res.status(responseData.status);
             res.json(responseData);
         }
@@ -217,6 +221,9 @@ router.put('/:contactId/', authUtils.jwtAuth, (req, res) => {
             responseData.status = 200;
             responseData.message = 'Contact updated successfully!';
 
+            // Emit a socket event so that client apps know a contact was updated
+            req.io.emit('PUT/api/v1/contacts/:contactId/');
+
             res.status(responseData.status);
             res.json(responseData);
         }
@@ -290,6 +297,9 @@ router.delete('/:contactId/', authUtils.jwtAuth, (req, res) => {
         } else {
             responseData.status = 200;
             responseData.message = 'Contact deleted successfully!';
+
+            // Emit a socket event so that client apps know a contact was deleted
+            req.io.emit('DELETED/api/v1/contacts/:contactId/');
 
             res.status(responseData.status);
             res.json(responseData);
