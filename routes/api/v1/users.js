@@ -147,14 +147,10 @@ router.post('/login/', (req, res) => {
 
                 return callback();
             }).catch((err) => {
-                console.log(new Date());
-                console.log(err);
-
                 responseData.status = 500,
                 responseData.message = 'Error logging in User.';
 
-                res.status(responseData.status);
-                res.json(responseData);
+                return callback(err);
             });
         },
 
