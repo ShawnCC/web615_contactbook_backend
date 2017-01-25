@@ -135,7 +135,7 @@ router.put('/:userId/', (req, res) => {
         (callback) => {
             user.name = req.body.user.name;
             user.email = req.body.user.email;
-            user.password = req.body.user.phone_number;
+            user.password = req.body.user.password;
 
             user.save().then((data) => {
                 responseData.user = data;
