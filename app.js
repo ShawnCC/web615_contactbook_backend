@@ -18,11 +18,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 // Require Routes
-const v1Contacts = require('./routes/api/v1/contacts');
 const v1Users = require('./routes/api/v1/users');
 
 // Define Routes
-app.use('/api/v1/contacts', v1Contacts);
 app.use('/api/v1/users', v1Users);
 
 app.use((req, res) => {
@@ -33,7 +31,7 @@ app.use((req, res) => {
     });
 });
 
-models.sequelize.sync({ force: false }).then(() => {
+models.sequelize.sync({ force: true }).then(() => {
     server.listen(3001, () => {
         var address = server.address();
 

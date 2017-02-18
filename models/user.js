@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 unique: true
             },
-            password: {
+            api_key: {
                  type: DataTypes.STRING,
                  validate: {
                      notEmpty: true
@@ -26,11 +26,9 @@ module.exports = (sequelize, DataTypes) => {
 
         underscored: true,
 
-        classMethods: {
-            associate: (models) => {
-                User.hasMany(models.contact, {
-                    onDelete: 'CASCADE'
-                });
+        hooks: {
+            beforeCreate: (instance) => {
+                instance.api_key = Date.now().toString();
             }
         }
     });
