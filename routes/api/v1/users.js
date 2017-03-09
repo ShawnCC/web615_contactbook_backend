@@ -6,6 +6,7 @@ const async = require('async');
 const models = require('../../../models');
 const jwt = require('jsonwebtoken');
 const config = require(__dirname + '/../../../config/config.json');
+const authUtils = require('../../../utils/auth');
 
 /**
  * Get all the users
@@ -44,7 +45,7 @@ router.get('/', (req, res) => {
  * Get a user with all of its contacts
  * GET /api/v1/users/:userId/contacts/
  */
-router.get('/:userId/contacts/', (req, res) => {
+router.get('/:userId/contacts/', authUtils.jwtAuth, (req, res) => {
     let responseData = {};
 
     // Find the user by its ID
@@ -61,9 +62,14 @@ router.get('/:userId/contacts/', (req, res) => {
             model: models.contact
         }]
     }).then((data) => {
-        responseData.status = 200;
-        responseData.message = 'User retrieved successfully!';
-        responseData.user = data;
+        if (data.id !== req.decoded.id) {
+            responseData.status = 403;
+            responseData.message = 'You don\' have sufficient permissions to access this data';
+        } else {
+            responseData.status = 200;
+            responseData.message = 'User retrieved successfully!';
+            responseData.user = data;
+        }
 
         res.status(responseData.status);
         res.json(responseData);
