@@ -18,6 +18,12 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 // This middleware includes Socket.IO instance in the request object so that all
 // of the endpoints have access to Socket.IO
 app.use((req, res, next) => {
