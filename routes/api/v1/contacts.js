@@ -4,13 +4,13 @@ const express = require('express');
 const router = express.Router();
 const async = require('async');
 const models = require('../../../models');
-const authUtils = require('../../../utils/auth');
+// const authUtils = require('../../../utils/auth');
 
 /**
  * Get all the contacts
  * GET /api/v1/contacts/
  */
-router.get('/', authUtils.jwtAuth, (req, res) => {
+router.get('/', (req, res) => {
     let responseData = {};
 
     models.contact.findAll({
@@ -40,7 +40,7 @@ router.get('/', authUtils.jwtAuth, (req, res) => {
  * Get a contact
  * GET /api/v1/contacts/:contactId/
  */
-router.get('/:contactId/', authUtils.jwtAuth, (req, res) => {
+router.get('/:contactId/', (req, res) => {
     let responseData = {};
     let contact;
 
@@ -65,19 +65,19 @@ router.get('/:contactId/', authUtils.jwtAuth, (req, res) => {
             });
         },
 
-        // Verify that the ID of the user in req.decoded, and the user_id in the
-        // contact match
-        (callback) => {
-            // Compare the IDs, if they're not equal return with an error
-            if (req.decoded.id !== contact.user_id) {
-                responseData.status = 403;
-                responseData.message = 'You have insufficient permissions to access the Contact.';
+        // // Verify that the ID of the user in req.decoded, and the user_id in the
+        // // contact match
+        // (callback) => {
+        //     // Compare the IDs, if they're not equal return with an error
+        //     if (req.decoded.id !== contact.user_id) {
+        //         responseData.status = 403;
+        //         responseData.message = 'You have insufficient permissions to access the Contact.';
 
-                return callback(new Error(responseData.message));
-            }
+        //         return callback(new Error(responseData.message));
+        //     }
 
-            return callback();
-        }
+        //     return callback();
+        // }
     ], (err) => {
         if (err) {
             console.log(new Date());
@@ -100,22 +100,22 @@ router.get('/:contactId/', authUtils.jwtAuth, (req, res) => {
  * Create a contact
  * POST /api/v1/contacts/
  */
-router.post('/', authUtils.jwtAuth, (req, res) => {
+router.post('/', (req, res) => {
     let responseData = {};
 
     async.series([
-        // Verify that the ID of the user in req.decoded, and the user_id in the
-        // request body match
-        (callback) => {
-            if (req.decoded.id !== req.body.contact.user_id) {
-                responseData.status = 403;
-                responseData.message = 'You have insufficient permissions to access the Contact.';
+        // // Verify that the ID of the user in req.decoded, and the user_id in the
+        // // request body match
+        // (callback) => {
+        //     if (req.decoded.id !== req.body.contact.user_id) {
+        //         responseData.status = 403;
+        //         responseData.message = 'You have insufficient permissions to access the Contact.';
 
-                return callback(new Error(responseData.message));
-            }
+        //         return callback(new Error(responseData.message));
+        //     }
 
-            return callback();
-        },
+        //     return callback();
+        // },
 
         // Create the Contact
         (callback) => {
@@ -155,7 +155,7 @@ router.post('/', authUtils.jwtAuth, (req, res) => {
  * Update a contact
  * PUT /api/v1/contacts/:contactId/
  */
-router.put('/:contactId/', authUtils.jwtAuth, (req, res) => {
+router.put('/:contactId/', (req, res) => {
     let responseData = {};
     let contact;
 
@@ -179,19 +179,19 @@ router.put('/:contactId/', authUtils.jwtAuth, (req, res) => {
             });
         },
 
-        // Verify that the ID of the user in req.decoded, and the user_id in the
-        // contact match
-        (callback) => {
-            // Compare the IDs, if they're not equal return with an error
-            if (req.decoded.id !== contact.user_id) {
-                responseData.status = 403;
-                responseData.message = 'You have insufficient permissions to access the Contact.';
+        // // Verify that the ID of the user in req.decoded, and the user_id in the
+        // // contact match
+        // (callback) => {
+        //     // Compare the IDs, if they're not equal return with an error
+        //     if (req.decoded.id !== contact.user_id) {
+        //         responseData.status = 403;
+        //         responseData.message = 'You have insufficient permissions to access the Contact.';
 
-                return callback(new Error(responseData.message));
-            }
+        //         return callback(new Error(responseData.message));
+        //     }
 
-            return callback();
-        },
+        //     return callback();
+        // },
 
         // Update and save the contact
         (callback) => {
@@ -234,7 +234,7 @@ router.put('/:contactId/', authUtils.jwtAuth, (req, res) => {
  * Delete a contact
  * DELETE /api/v1/contacts/:contactId/
  */
-router.delete('/:contactId/', authUtils.jwtAuth, (req, res) => {
+router.delete('/:contactId/', (req, res) => {
     let responseData = {};
     let contact;
 
@@ -258,19 +258,19 @@ router.delete('/:contactId/', authUtils.jwtAuth, (req, res) => {
             });
         },
 
-        // Verify that the ID of the user in req.decoded, and the user_id in the
-        // contact match
-        (callback) => {
-            // Compare the IDs, if they're not equal return with an error
-            if (req.decoded.id !== contact.user_id) {
-                responseData.status = 403;
-                responseData.message = 'You have insufficient permissions to access the Contact.';
+        // // Verify that the ID of the user in req.decoded, and the user_id in the
+        // // contact match
+        // (callback) => {
+        //     // Compare the IDs, if they're not equal return with an error
+        //     if (req.decoded.id !== contact.user_id) {
+        //         responseData.status = 403;
+        //         responseData.message = 'You have insufficient permissions to access the Contact.';
 
-                return callback(new Error(responseData.message));
-            }
+        //         return callback(new Error(responseData.message));
+        //     }
 
-            return callback();
-        },
+        //     return callback();
+        // },
 
         // Delete the contact
         (callback) => {
