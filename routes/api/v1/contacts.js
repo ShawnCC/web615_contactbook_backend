@@ -222,7 +222,9 @@ router.put('/:contactId/', (req, res) => {
             responseData.message = 'Contact updated successfully!';
 
             // Emit a socket event so that client apps know a contact was updated
-            req.io.emit('PUT/api/v1/contacts/:contactId/');
+            req.io.emit('PUT/api/v1/contacts/:contactId/', {
+                contactId: req.params.contactId
+            });
 
             res.status(responseData.status);
             res.json(responseData);
